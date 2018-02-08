@@ -18,14 +18,14 @@ public class Homework_5_3_Solution {
         MongoCollection<Document> grades = db.getCollection("grades");
 
         grades.aggregate(asList(
-                unwind("$scores")
-                ,match(nin("scores.type", "quiz"))
-                ,group(new Document("student_id", "$student_id")
+                unwind("$scores"),
+                match(nin("scores.type", "quiz")),
+                group(new Document("student_id", "$student_id")
                         .append("class_id", "$class_id"),
-                        avg("studentClassAvgScore", "$scores.score"))
-                ,group(new Document("class_id", "$_id.class_id"),
-                        avg("classAvgScore", "$studentClassAvgScore"))
-                ,sort(descending("classAvgScore"))
+                        avg("studentClassAvgScore", "$scores.score")),
+                group(new Document("class_id", "$_id.class_id"),
+                        avg("classAvgScore", "$studentClassAvgScore")),
+                sort(descending("classAvgScore"))
         )).forEach(printBlock);
 
         client.close();
