@@ -27,7 +27,7 @@ public class Homework_5_2_Solution {
         client.close();
     }
 
-    static Block<Document> printBlock = new Block<Document>() {
+    static final Block<Document> printBlock = new Block<Document>() {
         public void apply(final Document document) {
             System.out.println(document.toJson());
         }
